@@ -80,8 +80,8 @@
         button:hover { transform: scale(1.1); background: var(--accent); }
 
         .photo-frame {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             object-fit: cover;
             border-radius: 20px;
             margin-bottom: 15px;
@@ -115,9 +115,6 @@
         .inner-record { width: 60px; height: 60px; background: var(--button-color); border-radius: 50%; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Next Photo Button (Hidden by default) */
-        #nextPhotoBtn { display: none; background-color: var(--accent); }
-
     </style>
 </head>
 <body>
@@ -129,17 +126,17 @@
     <div class="container">
         
         <div id="screen0" class="screen active">
-            <img src="welcome_sis.jpg" class="photo-frame" alt="Funny pic of sister">
+            <img src="welcome_sis.jpg" class="photo-frame">
             <h2 class="wiggle">Hey You! 👋</h2>
             <p>I made something special for the birthday girl...</p>
             <button onclick="startExperience()">Let's Go! 🚀</button>
         </div>
 
         <div id="screen1" class="screen">
-            <img src="question_sis.jpg" class="photo-frame" alt="Question">
-            <h2>Are you ready to admit I'm the favorite child? 😈</h2>
+            <img src="question_sis.gif" class="photo-frame">
+            <h2>Ready to admit I'm the favorite child? 😈</h2>
             <div style="display:flex; justify-content: center;">
-                <button onclick="showScreen(3)">YES (Obviously)</button>
+                <button onclick="showScreen(3)">YES</button>
                 <button onclick="showScreen(2)" style="background:#b0bec5">NO</button>
             </div>
         </div>
@@ -147,12 +144,12 @@
         <div id="screen2" class="screen">
             <h1 style="font-size: 50px;">🚫</h1>
             <h2>WRONG ANSWER!</h2>
-            <p>System crashing... try again and be honest.</p>
+            <p>Try again and be honest.</p>
             <button onclick="showScreen(1)">Okay fine 🙄</button>
         </div>
 
         <div id="screen3" class="screen">
-            <h3>Official Age Tracker:</h3>
+            <h3>Age Countdown:</h3>
             <div class="timer" id="timer">Loading...</div>
             <p>Look at you getting older! 👵</p>
             <button onclick="showScreen(4)">Proceed to Party 🎉</button>
@@ -160,11 +157,11 @@
 
         <div id="screen4" class="screen">
             <h2 class="wiggle">Happy Birthday!! 🎂</h2>
-            <p>Choose your gifts carefully...</p>
+            <p>Choose your gifts...</p>
             <div class="gift-grid">
                 <div class="gift-box" onclick="showGift('hug')">🫂<br><span style="font-size:12px">Hug</span></div>
                 <div class="gift-box" onclick="showGift('cake')">🍰<br><span style="font-size:12px">Cake</span></div>
-                <div class="gift-box" onclick="showGift('memories')">📸<br><span style="font-size:12px">Hall of Shame</span></div>
+                <div class="gift-box" onclick="showGift('memories')">📸<br><span style="font-size:12px">Shame</span></div>
                 <div class="gift-box" onclick="playMusicScreen()">🎵<br><span style="font-size:12px">Vibe</span></div>
             </div>
             <button id="finalBtn" onclick="showScreen(7)" style="display:none; margin-top: 20px; background: var(--accent);">OPEN FINAL SURPRISE 🎁</button>
@@ -173,28 +170,25 @@
         <div id="screen5" class="screen">
             <img id="gift-img" src="" class="photo-frame">
             <h2 id="gift-text"></h2>
-            
-            <button id="nextPhotoBtn" onclick="nextPhoto()">Next Embarrassing Pic ➡️</button>
-            
-            <button onclick="showScreen(4)" style="margin-top: 15px; background: #ddd; color: #333;">Back to Gifts</button>
+            <button id="nextPhotoBtn" onclick="nextPhoto()" style="display:none;">Next Pic ➡️</button>
+            <button onclick="showScreen(4)" style="margin-top: 15px; background: #ddd; color: #333;">Back</button>
         </div>
 
         <div id="screen6" class="screen">
             <div class="record-player" id="record"><div class="inner-record"></div></div>
-            <h3>"Count On Me"</h3>
-            <p>Because I've always got your back.</p>
-            <button onclick="toggleMusic()">Play/Pause ⏯️</button>
+            <h3>"Rakita Rakita" 🥁</h3>
+            <p>Turn the volume UP!</p>
+            <button id="playPauseBtn" onclick="toggleMusic()">Play Song ⏯️</button>
             <button onclick="showScreen(4)" style="background: #ccc; color: black;">Back</button>
         </div>
 
         <div id="screen7" class="screen">
             <img src="final_sis.jpg" class="photo-frame" style="border-radius: 50%;">
-            <h2 class="wiggle">To My Sister ❤️</h2>
+            <h2 class="wiggle">Happy Birthday Sis! ❤️</h2>
             <div class="note-card">
-                "Happy Birthday! Honestly, I don't say it enough, but I'm lucky to have you. You are annoying, loud, and you steal my stuff... but you are also my best friend. Have the best day ever!"
+                "You might be annoying, but you're my favorite human. I hope your day is as awesome as this website I made you! Let's eat cake! 🎂"
             </div>
             <button onclick="shootConfetti()">CELEBRATE! 🎉</button>
-            <p style="font-size: 12px; margin-top: 20px; color: #888;">Screenshot this and send it to me as proof you saw it.</p>
         </div>
 
     </div>
@@ -204,19 +198,14 @@
         const record = document.getElementById('record');
         let giftCount = 0;
         
-        // Gallery Variables
         const embarrassingPhotos = ['embarrassing1.jpg', 'embarrassing2.jpg', 'embarrassing3.jpg'];
-        const embarrassingCaptions = [
-            "What is this pose? 😂",
-            "I'm saving this for your wedding 📸",
-            "Literally no context for this one 💀"
-        ];
+        const embarrassingCaptions = ["Legendary pose. 😂", "Pure embarrassment. 📸", "Why did you do this? 💀"];
         let currentPhotoIndex = 0;
 
         function startExperience() {
             document.body.classList.add('party-bg-active');
             showScreen(1);
-            audio.play().catch(e => console.log("Audio needs user interaction"));
+            audio.play().catch(() => console.log("Waiting for user interaction"));
         }
 
         function showScreen(num) {
@@ -228,22 +217,19 @@
             const img = document.getElementById('gift-img');
             const txt = document.getElementById('gift-text');
             const nextBtn = document.getElementById('nextPhotoBtn');
-            
-            // Reset state
             nextBtn.style.display = 'none';
 
             if (type === 'hug') {
-                img.src = 'hug_sis.jpg'; 
-                txt.innerText = "A Big Virtual Squeeze! 🐻";
+                img.src = 'hug_sis.gif'; 
+                txt.innerText = "Virtual Hugs! 🐻";
             } else if (type === 'cake') {
-                img.src = 'cake.jpg'; 
-                txt.innerText = "I ate the real one... oops 🤤";
+                img.src = 'cake.gif'; 
+                txt.innerText = "Cake is coming soon! 🍰";
             } else if (type === 'memories') {
-                // Activate Gallery Mode
                 currentPhotoIndex = 0;
                 img.src = embarrassingPhotos[0];
                 txt.innerText = embarrassingCaptions[0];
-                nextBtn.style.display = 'inline-block'; // Show the "Next" button
+                nextBtn.style.display = 'inline-block';
             }
 
             giftCount++;
@@ -252,18 +238,9 @@
         }
 
         function nextPhoto() {
-            const img = document.getElementById('gift-img');
-            const txt = document.getElementById('gift-text');
-            
-            currentPhotoIndex++;
-            
-            // Loop back to start if we reach the end
-            if (currentPhotoIndex >= embarrassingPhotos.length) {
-                currentPhotoIndex = 0;
-            }
-
-            img.src = embarrassingPhotos[currentPhotoIndex];
-            txt.innerText = embarrassingCaptions[currentPhotoIndex];
+            currentPhotoIndex = (currentPhotoIndex + 1) % embarrassingPhotos.length;
+            document.getElementById('gift-img').src = embarrassingPhotos[currentPhotoIndex];
+            document.getElementById('gift-text').innerText = embarrassingCaptions[currentPhotoIndex];
         }
 
         function playMusicScreen() {
@@ -284,32 +261,24 @@
         }
 
         function checkFinal() {
-            if(giftCount >= 3) {
-                document.getElementById('finalBtn').style.display = 'block';
-            }
+            if(giftCount >= 3) document.getElementById('finalBtn').style.display = 'block';
         }
 
         function shootConfetti() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#ff9a9e', '#fad0c4', '#845ec2']
-            });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
         }
 
-        // TIMER LOGIC (Change date here)
+        // Set birthday to her actual date!
         const birthdayDate = new Date("2026-05-20T00:00:00").getTime(); 
-
         setInterval(() => {
             const now = new Date().getTime();
             const diff = birthdayDate - now;
-            if (diff < 0) { 
-                document.getElementById("timer").innerHTML = "IT'S PARTY TIME! 🥳"; 
-            } else {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById("timer").innerHTML = `${days} Days : ${hours} Hours left`;
+            const timer = document.getElementById("timer");
+            if (diff < 0) { timer.innerHTML = "BIRTHDAY TIME! 🥳"; }
+            else {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                timer.innerHTML = `${d}d : ${h}h left`;
             }
         }, 1000);
     </script>
