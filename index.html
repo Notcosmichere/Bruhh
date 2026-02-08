@@ -7,17 +7,19 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --primary: #ff9a9e;
-            --secondary: #fad0c4;
-            --accent: #845ec2;
-            --text-color: #4b4b4b;
-            --button-color: #ff6f91;
+            /* Updated Color Palette: Purple, Cyan, and Gold */
+            --primary: #845ec2;
+            --secondary: #d5dcf9;
+            --accent: #2c93af;
+            --text-color: #2d3436;
+            --button-color: #4b4453;
+            --gold: #ffc75f;
         }
 
         body {
             background-color: var(--secondary);
             color: var(--text-color);
-            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -29,9 +31,9 @@
         }
 
         .party-bg-active {
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #845ec2, #ffc75f);
+            background: linear-gradient(45deg, #845ec2, #2c93af, #ffc75f, #b0a8b9);
             background-size: 400% 400%;
-            animation: gradientBG 6s ease infinite;
+            animation: gradientBG 10s ease infinite;
         }
 
         @keyframes gradientBG {
@@ -41,79 +43,84 @@
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
             padding: 25px;
-            border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             width: 85%;
-            max-width: 400px;
+            max-width: 380px;
             z-index: 10;
-            border: 4px solid white;
+            border: 3px solid white;
             text-align: center;
-            position: relative;
             max-height: 90vh;
             overflow-y: auto;
         }
 
         .screen { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; }
-        .active { display: flex; animation: slideUp 0.5s ease; }
+        .active { display: flex; animation: fadeIn 0.6s ease; }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .wiggle { animation: wiggle 2s infinite ease-in-out; display: inline-block; }
-        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
         button {
-            background: var(--button-color);
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            margin: 10px;
-            transition: 0.2s;
-            box-shadow: 0 5px 15px rgba(255, 111, 145, 0.4);
+            margin: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(132, 94, 194, 0.3);
         }
-        button:hover { transform: scale(1.1); background: var(--accent); }
+        button:hover { transform: translateY(-3px); background: var(--accent); }
 
         .photo-frame {
-            width: 220px;
-            height: 220px;
+            width: 230px;
+            height: 230px;
             object-fit: cover;
-            border-radius: 20px;
+            border-radius: 15px;
             margin-bottom: 15px;
-            border: 5px solid white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 4px solid var(--primary);
         }
         
-        .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-top: 15px; }
+        .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 15px; }
         .gift-box { 
-            background: #fff0f5; 
-            padding: 20px; 
-            border-radius: 20px; 
+            background: white; 
+            padding: 15px; 
+            border-radius: 15px; 
             cursor: pointer; 
-            font-size: 2.5rem; 
-            border: 2px dashed var(--button-color); 
+            font-size: 2rem; 
+            border: 2px solid var(--secondary);
             transition: 0.3s; 
         }
-        .gift-box:hover { background: white; transform: rotate(5deg); }
+        .gift-box:hover { border-color: var(--primary); transform: scale(1.05); }
         
-        .timer { font-size: 1.4rem; font-weight: bold; color: var(--accent); background: #f3e5f5; padding: 10px; border-radius: 10px; margin: 15px 0; }
+        .timer { font-size: 1.2rem; font-weight: bold; color: white; background: var(--primary); padding: 10px; border-radius: 12px; margin: 15px 0; }
 
         .note-card {
-            background: #fffadd; color: #5d4037; padding: 20px; border-radius: 15px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-            font-family: 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6;
-            text-align: left; margin-top: 20px; transform: rotate(-1deg);
+            background: #fff;
+            color: var(--text-color);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 8px solid var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            font-style: italic;
+            text-align: left;
+            margin-top: 20px;
         }
 
-        .record-player { width: 150px; height: 150px; margin: 20px auto; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: spin 4s linear infinite; animation-play-state: paused; border: 5px solid #111; }
-        .record-player.playing { animation-play-state: running; }
-        .inner-record { width: 60px; height: 60px; background: var(--button-color); border-radius: 50%; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* Spinning record for visual cue only */
+        .music-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            animation: rotate 3s linear infinite;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
 
     </style>
 </head>
@@ -124,88 +131,85 @@
     </audio>
 
     <div class="container">
+        <div class="music-indicator" id="musicIcon" style="display:none;">🎵</div>
         
         <div id="screen0" class="screen active">
             <img src="welcome_sis.jpg" class="photo-frame">
-            <h2 class="wiggle">Hey You! 👋</h2>
-            <p>I made something special for the birthday girl...</p>
-            <button onclick="startExperience()">Let's Go! 🚀</button>
+            <h2 style="color: var(--primary);">Hey Sister! 👋</h2>
+            <p>I built this little corner of the internet just for you.</p>
+            <button onclick="startExperience()">Open Your Gift 🎁</button>
         </div>
 
         <div id="screen1" class="screen">
             <img src="question_sis.gif" class="photo-frame">
-            <h2>Ready to admit I'm the favorite child? 😈</h2>
-            <div style="display:flex; justify-content: center;">
-                <button onclick="showScreen(3)">YES</button>
-                <button onclick="showScreen(2)" style="background:#b0bec5">NO</button>
-            </div>
+            <h3>Quick Question...</h3>
+            <p>Are you ready to admit I'm the favorite child? 😈</p>
+            <button onclick="showScreen(3)">Yes, obviously</button>
+            <button onclick="showScreen(2)" style="background:#888">No way</button>
         </div>
 
         <div id="screen2" class="screen">
-            <h1 style="font-size: 50px;">🚫</h1>
-            <h2>WRONG ANSWER!</h2>
-            <p>Try again and be honest.</p>
-            <button onclick="showScreen(1)">Okay fine 🙄</button>
+            <h1 style="font-size: 60px;">❌</h1>
+            <p>Error 404: Honesty not found. Try again.</p>
+            <button onclick="showScreen(1)">Fine, you're the favorite 🙄</button>
         </div>
 
         <div id="screen3" class="screen">
-            <h3>Age Countdown:</h3>
+            <h3>Age Leveling Up In:</h3>
             <div class="timer" id="timer">Loading...</div>
-            <p>Look at you getting older! 👵</p>
-            <button onclick="showScreen(4)">Proceed to Party 🎉</button>
+            <p>Getting old is mandatory, growing up is optional! 👵</p>
+            <button onclick="showScreen(4)">Enter Party Zone ✨</button>
         </div>
 
         <div id="screen4" class="screen">
-            <h2 class="wiggle">Happy Birthday!! 🎂</h2>
-            <p>Choose your gifts...</p>
+            <h2 style="color: var(--primary);">Birthday Hub 🎂</h2>
             <div class="gift-grid">
-                <div class="gift-box" onclick="showGift('hug')">🫂<br><span style="font-size:12px">Hug</span></div>
-                <div class="gift-box" onclick="showGift('cake')">🍰<br><span style="font-size:12px">Cake</span></div>
-                <div class="gift-box" onclick="showGift('memories')">📸<br><span style="font-size:12px">Shame</span></div>
-                <div class="gift-box" onclick="playMusicScreen()">🎵<br><span style="font-size:12px">Vibe</span></div>
+                <div class="gift-box" onclick="showGift('hug')">🫂<br><small style="font-size:10px">HUG</small></div>
+                <div class="gift-box" onclick="showGift('cake')">🍰<br><small style="font-size:10px">CAKE</small></div>
+                <div class="gift-box" onclick="showGift('memories')">📸<br><small style="font-size:10px">SHAME</small></div>
+                <div class="gift-box" onclick="showFinal()">🎁<br><small style="font-size:10px">FINAL</small></div>
             </div>
-            <button id="finalBtn" onclick="showScreen(7)" style="display:none; margin-top: 20px; background: var(--accent);">OPEN FINAL SURPRISE 🎁</button>
+            <p style="font-size: 12px; margin-top: 15px;">Check all boxes to see the final message!</p>
         </div>
 
         <div id="screen5" class="screen">
             <img id="gift-img" src="" class="photo-frame">
-            <h2 id="gift-text"></h2>
-            <button id="nextPhotoBtn" onclick="nextPhoto()" style="display:none;">Next Pic ➡️</button>
-            <button onclick="showScreen(4)" style="margin-top: 15px; background: #ddd; color: #333;">Back</button>
-        </div>
-
-        <div id="screen6" class="screen">
-            <div class="record-player" id="record"><div class="inner-record"></div></div>
-            <h3>"Rakita Rakita" 🥁</h3>
-            <p>Turn the volume UP!</p>
-            <button id="playPauseBtn" onclick="toggleMusic()">Play Song ⏯️</button>
-            <button onclick="showScreen(4)" style="background: #ccc; color: black;">Back</button>
+            <h3 id="gift-text" style="color: var(--accent);"></h3>
+            <button id="nextPhotoBtn" onclick="nextPhoto()" style="display:none;">See Next Shame ➡️</button>
+            <button onclick="showScreen(4)" style="background: var(--button-color);">Back to Menu</button>
         </div>
 
         <div id="screen7" class="screen">
-            <img src="final_sis.jpg" class="photo-frame" style="border-radius: 50%;">
-            <h2 class="wiggle">Happy Birthday Sis! ❤️</h2>
+            <img src="final_sis.jpg" class="photo-frame" style="border-radius: 50%; border: 5px solid var(--gold);">
+            <h2 style="color: var(--primary);">Happy Birthday! ❤️</h2>
             <div class="note-card">
-                "You might be annoying, but you're my favorite human. I hope your day is as awesome as this website I made you! Let's eat cake! 🎂"
+                "To my favorite sister—thanks for being my built-in best friend (and the person I blame everything on). Have a 'Rakita Rakita' level blast today! You deserve it!"
             </div>
-            <button onclick="shootConfetti()">CELEBRATE! 🎉</button>
+            <button onclick="shootConfetti()" style="background: var(--gold); color: #000;">CELEBRATE 🎉</button>
         </div>
 
     </div>
 
     <script>
         const audio = document.getElementById('bgMusic');
-        const record = document.getElementById('record');
+        const musicIcon = document.getElementById('musicIcon');
         let giftCount = 0;
         
         const embarrassingPhotos = ['embarrassing1.jpg', 'embarrassing2.jpg', 'embarrassing3.jpg'];
-        const embarrassingCaptions = ["Legendary pose. 😂", "Pure embarrassment. 📸", "Why did you do this? 💀"];
+        const embarrassingCaptions = [
+            "ni pwoli thanne 😎", 
+            "Ayyeeee noooobb 🤣", 
+            "Prime ahnalo hm humm 😏"
+        ];
         let currentPhotoIndex = 0;
 
         function startExperience() {
             document.body.classList.add('party-bg-active');
             showScreen(1);
-            audio.play().catch(() => console.log("Waiting for user interaction"));
+            // Background music starts here
+            audio.play().then(() => {
+                musicIcon.style.display = 'block';
+            }).catch(e => console.log("Audio play blocked, will try again."));
         }
 
         function showScreen(num) {
@@ -221,19 +225,17 @@
 
             if (type === 'hug') {
                 img.src = 'hug_sis.gif'; 
-                txt.innerText = "Virtual Hugs! 🐻";
+                txt.innerText = "Hugs coming your way!";
             } else if (type === 'cake') {
                 img.src = 'cake.gif'; 
-                txt.innerText = "Cake is coming soon! 🍰";
+                txt.innerText = "Save me a slice!";
             } else if (type === 'memories') {
                 currentPhotoIndex = 0;
                 img.src = embarrassingPhotos[0];
                 txt.innerText = embarrassingCaptions[0];
                 nextBtn.style.display = 'inline-block';
             }
-
             giftCount++;
-            checkFinal();
             showScreen(5);
         }
 
@@ -243,32 +245,20 @@
             document.getElementById('gift-text').innerText = embarrassingCaptions[currentPhotoIndex];
         }
 
-        function playMusicScreen() {
-            giftCount++;
-            checkFinal();
-            showScreen(6);
-            if(audio.paused) toggleMusic();
-        }
-
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
-                record.classList.add('playing');
+        function showFinal() {
+            if(giftCount >= 3) {
+                showScreen(7);
+                shootConfetti();
             } else {
-                audio.pause();
-                record.classList.remove('playing');
+                alert("Check out the other gifts first! 🎁");
             }
         }
 
-        function checkFinal() {
-            if(giftCount >= 3) document.getElementById('finalBtn').style.display = 'block';
-        }
-
         function shootConfetti() {
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#845ec2', '#2c93af', '#ffc75f'] });
         }
 
-        // Set birthday to her actual date!
+        // Timer Logic
         const birthdayDate = new Date("2026-05-20T00:00:00").getTime(); 
         setInterval(() => {
             const now = new Date().getTime();
@@ -278,7 +268,8 @@
             else {
                 const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                timer.innerHTML = `${d}d : ${h}h left`;
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                timer.innerHTML = `${d}d ${h}h ${m}m`;
             }
         }, 1000);
     </script>
